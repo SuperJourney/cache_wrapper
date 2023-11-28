@@ -19,10 +19,6 @@ func (r *cacheWrapper) SetHandle(fn func(...interface{}) []interface{}) {
 	r.handler = fn
 }
 
-func (r *cacheWrapper) SetUniqueKey(uniqueKey string) {
-	r.uniqKey = uniqueKey
-}
-
 func (r *cacheWrapper) Request(ctx context.Context,
 	reqs []interface{}, // 原函数的所有参数
 	resp []interface{}, // UnMarshalWrapper 需要resp的类型
@@ -30,7 +26,7 @@ func (r *cacheWrapper) Request(ctx context.Context,
 	if r.handler == nil {
 		panic("handler not set yet")
 	}
-	key := r.GetUniqKey(r.uniqKey, reqs...)
+	key := r.GetUniqKey(reqs...)
 	var fn = func() (interface{}, error) {
 		cache, err := r.cacheEngine.Get(ctx, key)
 		if err == nil {

@@ -2,7 +2,7 @@ package cache_wrapper
 
 //go:generate mockery --name=RequestFormatter --outpkg=mocks
 type RequestFormatter interface {
-	GetUniqKey(string, ...interface{}) []byte
+	GetUniqKey(...interface{}) []byte
 	MarshalWrapI
 }
 
