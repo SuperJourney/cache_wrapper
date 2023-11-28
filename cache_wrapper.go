@@ -67,6 +67,5 @@ type cacheWrapper struct {
 	RequestFormatter
 	expired int // 缓存多久
 
-	uniqKey string // 区分接口
 	handler func(...interface{}) []interface{}
 }
