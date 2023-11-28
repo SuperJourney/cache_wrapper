@@ -21,7 +21,7 @@ func (r *cacheWrapper) SetHandle(fn func(...interface{}) []interface{}) {
 
 func (r *cacheWrapper) Request(ctx context.Context,
 	reqs []interface{}, // 原函数的所有参数
-	resp []interface{}, // UnMarshalWrapper 需要resp的类型
+	respes []interface{}, // UnMarshalWrapper 需要resp的类型
 ) ([]interface{}, error) {
 	if r.handler == nil {
 		panic("handler not set yet")
@@ -33,7 +33,7 @@ func (r *cacheWrapper) Request(ctx context.Context,
 	var fn = func() (interface{}, error) {
 		cache, err := r.cacheEngine.Get(ctx, key)
 		if err == nil {
-			resp, err := r.UnMarshalWrapper(cache, resp)
+			resp, err := r.UnMarshalWrapper(cache, respes...)
 			if err != nil {
 				return nil, err
 			}
@@ -42,7 +42,7 @@ func (r *cacheWrapper) Request(ctx context.Context,
 
 		if r.cacheEngine.IsNotFoundErr(err) {
 			curResp := r.handler(reqs...)
-			respMarshal, err := r.MarshalWrapper(curResp)
+			respMarshal, err := r.MarshalWrapper(curResp...)
 			if err != nil {
 				return nil, err
 			}

@@ -62,7 +62,7 @@ func Test_cacheWrapper_Get(t *testing.T) {
 	grpcRequestFormatter := mocks.NewRequestFormatter(t)
 	grpcRequestFormatter.On("GetUniqKey", mock.Anything, mock.Anything).Return([]byte("uniqKey"), nil)
 	grpcRequestFormatter.On("MarshalWrapper", mock.Anything, mock.Anything).Return([]byte(`{"name": "name", "age": 1}`), nil)
-	grpcRequestFormatter.On("UnMarshalWrapper", mock.Anything, mock.Anything).Return(func([]byte, interface{}) ([]interface{}, error) {
+	grpcRequestFormatter.On("UnMarshalWrapper", mock.Anything, mock.Anything, mock.Anything).Return(func([]byte, ...interface{}) ([]interface{}, error) {
 		return []interface{}{&DemoResponse{
 			Name: "name",
 			Age:  1,

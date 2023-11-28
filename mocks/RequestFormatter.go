@@ -66,24 +66,27 @@ func (_m *RequestFormatter) MarshalWrapper(_a0 ...interface{}) ([]byte, error) {
 }
 
 // UnMarshalWrapper provides a mock function with given fields: _a0, _a1
-func (_m *RequestFormatter) UnMarshalWrapper(_a0 []byte, _a1 interface{}) ([]interface{}, error) {
-	ret := _m.Called(_a0, _a1)
+func (_m *RequestFormatter) UnMarshalWrapper(_a0 []byte, _a1 ...interface{}) ([]interface{}, error) {
+	var _ca []interface{}
+	_ca = append(_ca, _a0)
+	_ca = append(_ca, _a1...)
+	ret := _m.Called(_ca...)
 
 	var r0 []interface{}
 	var r1 error
-	if rf, ok := ret.Get(0).(func([]byte, interface{}) ([]interface{}, error)); ok {
-		return rf(_a0, _a1)
+	if rf, ok := ret.Get(0).(func([]byte, ...interface{}) ([]interface{}, error)); ok {
+		return rf(_a0, _a1...)
 	}
-	if rf, ok := ret.Get(0).(func([]byte, interface{}) []interface{}); ok {
-		r0 = rf(_a0, _a1)
+	if rf, ok := ret.Get(0).(func([]byte, ...interface{}) []interface{}); ok {
+		r0 = rf(_a0, _a1...)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).([]interface{})
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func([]byte, interface{}) error); ok {
-		r1 = rf(_a0, _a1)
+	if rf, ok := ret.Get(1).(func([]byte, ...interface{}) error); ok {
+		r1 = rf(_a0, _a1...)
 	} else {
 		r1 = ret.Error(1)
 	}

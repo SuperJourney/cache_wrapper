@@ -8,5 +8,5 @@ type RequestFormatter interface {
 
 type MarshalWrapI interface {
 	MarshalWrapper(...interface{}) ([]byte, error)
-	UnMarshalWrapper([]byte, interface{}) ([]interface{}, error)
+	UnMarshalWrapper([]byte, ...interface{}) ([]interface{}, error)
 }
