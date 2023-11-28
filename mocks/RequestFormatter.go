@@ -10,12 +10,16 @@ type RequestFormatter struct {
 }
 
 // GetUniqKey provides a mock function with given fields: _a0
-func (_m *RequestFormatter) GetUniqKey(_a0 ...interface{}) []byte {
+func (_m *RequestFormatter) GetUniqKey(_a0 ...interface{}) ([]byte, error) {
 	var _ca []interface{}
 	_ca = append(_ca, _a0...)
 	ret := _m.Called(_ca...)
 
 	var r0 []byte
+	var r1 error
+	if rf, ok := ret.Get(0).(func(...interface{}) ([]byte, error)); ok {
+		return rf(_a0...)
+	}
 	if rf, ok := ret.Get(0).(func(...interface{}) []byte); ok {
 		r0 = rf(_a0...)
 	} else {
@@ -24,7 +28,13 @@ func (_m *RequestFormatter) GetUniqKey(_a0 ...interface{}) []byte {
 		}
 	}
 
-	return r0
+	if rf, ok := ret.Get(1).(func(...interface{}) error); ok {
+		r1 = rf(_a0...)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
 }
 
 // MarshalWrapper provides a mock function with given fields: _a0

@@ -26,7 +26,10 @@ func (r *cacheWrapper) Request(ctx context.Context,
 	if r.handler == nil {
 		panic("handler not set yet")
 	}
-	key := r.GetUniqKey(reqs...)
+	key, err := r.GetUniqKey(reqs...)
+	if err != nil {
+		return nil, err
+	}
 	var fn = func() (interface{}, error) {
 		cache, err := r.cacheEngine.Get(ctx, key)
 		if err == nil {
