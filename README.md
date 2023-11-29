@@ -32,14 +32,14 @@ go get github.com/SuperJourney/cache_wrapper@v1.0.2
 go get github.com/SuperJourney/grpc_formtter@v1.0.0
 ```
 
-初始化 cacheWrapper
+- 初始化 cacheWrapper
 
 ```go
 // new cacheWrapper
 cacheWrapper := cache_wrapper.NewCacheWrapper(cacheengine.NewCacheEngine(), grpcformatter.NewGrpcFormatter(fmt.Sprintf("%s_%s", "MyApp", "Example")), 5)
 ```
 
-设置handle, 按照grpc的 request,response顺序传入
+- 设置handle, 按照grpc的 request,response顺序传入
 
 ```go
 cacheWrapper.SetHandle(func(args ...interface{}) []interface{} {
@@ -48,13 +48,11 @@ cacheWrapper.SetHandle(func(args ...interface{}) []interface{} {
 })
 ```
 
-发起请求：
+- 发起请求：
 
-ctx: 上下文参数
-
-requests []interfaces : 入参
-
-response []interfaces : 数据格式化存储知道返回结构题的基本类型， 需要初始化response;
+  - ctx: 上下文参数
+  - requests []interfaces : 入参
+  - response []interfaces : 数据格式化存储知道返回结构体的基本类型， 需要初始化 response;
 
 ```go
 got, err := cacheWrapper.Request(ctx, []interface{}{ctx, r}, []interface{}{&pb_member.DemoResponse{}, errors.New("")})
