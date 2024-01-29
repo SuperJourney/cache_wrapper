@@ -29,7 +29,7 @@ H --> G[Return response]
 
 ```bash
 go get github.com/SuperJourney/cache_wrapper@v1.0.2
-go get github.com/SuperJourney/grpc_formtter@v1.0.0
+go get github.com/SuperJourney/grpc_formatter@v1.0.0
 ```
 
 - 初始化 cacheWrapper
